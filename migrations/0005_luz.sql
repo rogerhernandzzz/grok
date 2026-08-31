@@ -9,3 +9,5 @@ create table if not exists luz_ledger (
   note       text,
   created_at timestamptz not null default now()
 );
+create index if not exists luz_ledger_to_idx on luz_ledger (to_user, created_at desc);
+create index if not exists luz_ledger_from_idx on luz_ledger (from_user, created_at desc);

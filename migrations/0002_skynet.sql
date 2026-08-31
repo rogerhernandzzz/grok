@@ -26,6 +26,7 @@ create table if not exists forum_posts (
   content     text not null,
   created_at  timestamptz not null default now()
 );
+create index if not exists forum_posts_created_idx on forum_posts (created_at desc);
 
 create table if not exists donations (
   id          serial primary key,
@@ -71,7 +72,7 @@ create table if not exists dm_messages (
   from_user   text not null,
   to_user     text not null,
   author_name text not null,
-  body       text not null,
+  body        text not null,
   read        boolean not null default false,
   created_at  timestamptz not null default now()
 );

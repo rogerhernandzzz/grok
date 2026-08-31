@@ -1,0 +1,69 @@
+SKYNET - La Resistencia de Venezuela
+=====================================
+
+ESTRUCTURA DEL PROYECTO:
+
+skynet/
+├── backend/
+│   ├── main.py                 # FastAPI app principal
+│   ├── models.py               # SQLAlchemy models
+│   ├── database.py             # DB config
+│   ├── api/
+│   │   ├── auth.py             # Registro, login, verificación
+│   │   ├── donations.py        # Donaciones (Stripe, Crypto)
+│   │   ├── users.py            # Perfil usuario
+│   │   ├── news.py             # Blog/noticias
+│   │   ├── forum.py            # Foro pseudonímico
+│   │   ├── admin.py            # Panel admin
+│   │   └── trader.py           # Trader bot (simulado)
+│   ├── services/
+│   │   ├── payment_service.py  # Procesamiento pagos
+│   │   ├── email_service.py    # Emails
+│   │   └── crypto_service.py   # Cripto (Binance, Bitcoin)
+│   ├── smart_contracts/
+│   │   └── transparency.sol    # Smart contract
+│   ├── requirements.txt
+│   ├── .env.example
+│   └── seed_data.py
+│
+├── frontend/
+│   ├── public/
+│   │   ├── index.html          # Landing page (SpaceX style)
+│   │   ├── registro.html       # Registro con face ID
+│   │   ├── login.html          # Login
+│   │   ├── donaciones.html     # Página donaciones
+│   │   ├── noticias.html       # Blog/noticias
+│   │   ├── foro.html           # Foro
+│   │   ├── trader.html         # Trader bot
+│   │   ├── panel.html          # Admin panel (Roger)
+│   │   ├── lider.html          # Info del líder
+│   │   └── css/
+│   │       ├── styles.css      # Estilos principales (SpaceX)
+│   │       ├── animations.css  # Animaciones
+│   │       └── responsive.css  # Mobile
+│   └── js/
+│       ├── api.js              # Cliente API
+│       ├── auth.js             # Auth logic
+│       ├── face-id.js          # Face ID (local)
+│       └── utils.js            # Helpers
+│
+├── scripts/
+│   └── deploy.sh               # Deploy a Render
+│
+├── docker-compose.yml          # Local dev
+├── Dockerfile                  # Production
+├── .env.example
+├── .gitignore
+├── README.md
+└── render.yaml                 # Render deployment config
+
+TECH STACK:
+- Backend: FastAPI + SQLAlchemy + PostgreSQL
+- Frontend: HTML/CSS/JS (Vanilla)
+- Auth: JWT + Face ID (local)
+- Pagos: Stripe, Binance API, Bitcoin
+- Blockchain: Solidity (smart contracts)
+- Deploy: Render + Docker
+- Dominio: vamosportidiosdado.render.com
+
+STATUS: En construcción...
