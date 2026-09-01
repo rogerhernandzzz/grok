@@ -24,7 +24,7 @@ export const Route = createRootRoute({
       { name: "description", content: "SKYNET — La Resistencia." },
     ],
     links: [
-      { rel: "stylesheet", href: "/skynet.css?v=226" },
+      { rel: "stylesheet", href: "/skynet.css?v=302" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
