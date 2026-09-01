@@ -19,7 +19,7 @@ function Donar() {
     void listExpenses().then(setExpenses).catch(() => setExpenses([]));
   }, []);
   return (
-    <PageShell title="Aportar" kicker="Transparencia">
+    <PageShell title="Apoyar" kicker="Transparencia">
       <div className="space-y-4">
         <Panel>
           <p className="font-mono text-[11px] tracking-widest uppercase text-muted">Caja pública</p>
