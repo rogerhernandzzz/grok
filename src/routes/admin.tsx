@@ -38,6 +38,7 @@ function AdminPage() {
   const [tab, setTab] = useState<Tab>("monitor");
   const [members, setMembers] = useState<AdminMember[]>([]);
   const [visitors, setVisitors] = useState<SiteVisitor[]>([]);
+  const [trafficReady, setTrafficReady] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,8 +46,7 @@ function AdminPage() {
     const next = await getAdminStatus();
     setStatus(next);
     if (next.isAdmin) {
-      setMembers(await listMembers());
-      setVisitors(await listVisitors());
+      void listMembers().then(setMembers).catch(() => undefined);
     }
   }
 
@@ -56,13 +56,19 @@ function AdminPage() {
   }, [user]);
 
   useEffect(() => {
-    if (!user || tab !== "monitor") return;
+    if (!user || !status?.isAdmin || tab !== "monitor") return;
+    void listVisitors()
+      .then((rows) => {
+        setVisitors(rows);
+        setTrafficReady(true);
+      })
+      .catch(() => setTrafficReady(true));
     const id = window.setInterval(() => {
       void listMembers().then(setMembers).catch(() => undefined);
       void listVisitors().then(setVisitors).catch(() => undefined);
-    }, 5000);
+    }, 8000);
     return () => window.clearInterval(id);
-  }, [user, tab]);
+  }, [user, tab, status?.isAdmin]);
 
   if (isPending) return <PageShell title="Administración" kicker="Servidor"><div className="h-40 animate-pulse rounded-xl bg-surface" /></PageShell>;
   if (!user) return <RedirectToSignIn />;
@@ -142,7 +148,11 @@ function AdminPage() {
           </Panel>
           <Panel className="monitor-col">
             <h2 className="mb-3 text-lg font-semibold">Tráfico</h2>
-            {visitors.length === 0 ? <p className="text-sm text-muted">Nadie aún.</p> : (
+            {!trafficReady ? (
+              <p className="text-sm text-muted">Cargando tráfico…</p>
+            ) : visitors.length === 0 ? (
+              <p className="text-sm text-muted">Nadie aún.</p>
+            ) : (
               <ul className="divide-y divide-border">
                 {visitors.map((v) => (
                   <li key={v.id} className="py-3">
